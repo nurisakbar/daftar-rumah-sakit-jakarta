@@ -130,8 +130,14 @@ class RumahSakitController extends Controller
 
     // MENDAPATKAN SEMUA DATA YANG DIBUTUHKAN
     public function sinkronisasi(){
-        $this->transaksiPengirimanDataKeSatusehat();
-        $this->getDataRumahSakit();
-        $this->lengkapiDataAlamatRumahSakit();
+        try {
+            $this->transaksiPengirimanDataKeSatusehat();
+            $this->getDataRumahSakit();
+            $this->lengkapiDataAlamatRumahSakit();
+            return response()->json(['message' => 'Data synced successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 200);
+        }
+
     }
 }
